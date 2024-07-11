@@ -128,8 +128,6 @@ class _WebViewExampleState extends State<WebViewExample> {
         const String evaluate = """
         var result = 'WebView Test channel Print'; 
         Print.postMessage(result);
-        
-        'this is return of execution';
         """;
 
         final result = await _controller.runJavaScript(evaluate) as String;
