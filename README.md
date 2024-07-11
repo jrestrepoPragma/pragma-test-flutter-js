@@ -61,31 +61,39 @@ Puedes descargar el proyecto en el enlace [download](https://github.com/jrestrep
 
 ## Consideraciones
 
-  ### Apps:
+  ### Web y App webView para comunicación con postMessage:
+  
+  - #### web_post_message ✅
+    Se utiliza javascript vanilla para lograr la comunicación entre la webView y la App.
+  
+  - #### app_post_message ✅
+    Se utiliza webview_flutter package 
+
+  ### Apps webView para ejecutar javascript:
 
   - #### test_flutter_webview ✅
-    Se utiliza webview_flutter plugin
+    Se utiliza webview_flutter package
     https://pub.dev/packages/webview_flutter/example
 
     _"No agrega peso al tamaño de la aplicación, pero una vista web significa que hay un navegador completo en la mmoria solo para evaluar el código JavaScript."_
 
-    En la revisión y pruebas es la mejor opción, ya que, simplifica la implementación y es un plugin oficial que se actualiza constantemente.
+    En la revisión y pruebas es la mejor opción, ya que, simplifica la implementación y es un package oficial que se actualiza constantemente.
 
     4.8.0 > hace 11 días actualizada
     
     **72M**	*apps/test_flutter_webview.apk*  En promedio una app sin nada pesa 70M ~ 80M
 
-  - ## test-flutter-js ⚠️
-    Aplicación con plugin flutter_js actualizado para flutter 3.0 >
+  - #### test-flutter-js ⚠️
+    Aplicación con package flutter_js actualizado para flutter 3.0 >
     
     0.8.0 > hace 10 meses actualizada
 
     **139M**	*apps/test-flutter-js-debug.apk*
 
-  - ## flutter_liquidcore 💀
+  - #### flutter_liquidcore 💀
     **DISCONTINUED** replaced by: **flutter_js**
 
-  - ## test_flutter_qjs 🚫
+  - #### test_flutter_qjs 🚫
     Aplicación con fluttter < 3.0, no recomendada
     Se devio añadir fvm para realizar pruebas con flutter 2.10.x
     Se avanzo en el error, pero se presenta incompativilidad con la versión de gradle y no se puede compilar
@@ -94,7 +102,7 @@ Puedes descargar el proyecto en el enlace [download](https://github.com/jrestrep
 
     0.3.7 > hace 2 años sin actualizar
 
-  - ## flutter_jscore 🚫
+  - #### flutter_jscore 🚫
     Aplicación con fluttter < 3.0, no recomendada
     No se implementa, debido a que se genera error al compilar el ejemplo del proyecto y genera error de versión deprecada.
 

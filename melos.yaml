@@ -4,6 +4,8 @@ packages:
   - apps/test-flutter-js
   - apps/test_flutter_webview
   - apps/test_run
+  - apps/app_post_message
+  - apps/web_post_message  
 
 scripts:
   analyze:
