@@ -67,6 +67,30 @@ class _MainApp extends State<MainApp> {
           debugPrint('AnyChannel: ${message.message}');
         },
       )
+      ..addJavaScriptChannel(
+        'ReactNativeWebView',
+        onMessageReceived: (JavaScriptMessage message) {
+          debugPrint('ReactNativeWebView: ${message.message}');
+
+          // Obtener objeto de la web
+          final request = json.decode(message.message) as Map;
+
+          // Crear objeto de resputa para la web
+          final response = request;
+          response['op'] = 'sendDataLogin';
+          response['origin'] = 'react-chasis';
+          response['payload'] = {
+            'isLastVersion': true,
+          };
+
+          final responseString = json.encode(response);
+
+          // ignore: cast_nullable_to_non_nullable
+          _controller.runJavaScript('''
+          window.postMessage(JSON.stringify($responseString));
+          ''') as String;
+        },
+      )
       ..loadRequest(Uri.parse('http://localhost:8080'));
     // change http://localhost:8080 by web_post_message URL
 
