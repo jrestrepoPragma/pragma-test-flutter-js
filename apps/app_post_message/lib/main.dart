@@ -55,8 +55,11 @@ class _MainApp extends State<MainApp> {
               'param1': 'value1',
               'param2': 'value2',
             };
+
+            final responseString = json.encode(response);
+
             _controller.runJavaScript(
-              'window.fromFlutterWebViewChannel(${json.encode(response)});',
+              'window.postMessage(JSON.stringify($responseString));',
             );
           }
         },
@@ -70,7 +73,7 @@ class _MainApp extends State<MainApp> {
       ..addJavaScriptChannel(
         'ReactNativeWebView',
         onMessageReceived: (JavaScriptMessage message) {
-          debugPrint('ReactNativeWebView: ${message.message}');
+          debugPrint('👻👻👻 ReactNativeWebView 👻👻👻: ${message.message}');
 
           // Obtener objeto de la web
           final request = json.decode(message.message) as Map;
@@ -83,15 +86,17 @@ class _MainApp extends State<MainApp> {
             'isLastVersion': true,
           };
 
-          final responseString = json.encode(response);
+          /* final responseString = json.encode(response);
 
           // ignore: cast_nullable_to_non_nullable
           _controller.runJavaScript('''
           window.postMessage(JSON.stringify($responseString));
-          ''') as String;
+          ''') as String; */
         },
       )
-      ..loadRequest(Uri.parse('http://localhost:8080'));
+      ..loadRequest(
+        Uri.parse('https://wbv.itau.co/contactenos-ppublic/?app=pn'),
+      );
     // change http://localhost:8080 by web_post_message URL
 
     if (controller.platform is AndroidWebViewController) {
@@ -118,9 +123,35 @@ class _MainApp extends State<MainApp> {
     return FloatingActionButton(
       onPressed: () {
         _controller.runJavaScript('''
-          console.log("execution from App"); 
-          AnyChannel.postMessage("User Agent: " + navigator.userAgent);
-          ''');
+          var Android = window;
+
+          function openExternalBrowser(url, state) {
+            let map = {
+                'op': 'goToCallKeyboard',
+                'origin': 'ContactUs',
+                'syncmode' : false,
+                'payload': {
+                'url' : url,
+                'state' : state,
+              }
+            };  
+            ReactNativeWebView.postMessage(JSON.stringify(map));
+            console.log('openExternalBrowser', JSON.stringify(map));
+          }
+
+          function callPhone(phone) {
+            let map = {
+                'op': 'goToCallKeyboard',
+                'origin': 'ContactUs',
+                'syncmode' : false,
+                'payload': {
+                'numberPhoneFull' : phone,
+              }
+            };  
+            ReactNativeWebView.postMessage(JSON.stringify(map));
+            console.log('callPhone', JSON.stringify(map));
+          }
+        ''');
       },
       child: const Icon(Icons.share),
     );

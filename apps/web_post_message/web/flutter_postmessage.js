@@ -1,7 +1,7 @@
 function flutterWebViewChannel(msg) {
-    FlutterWebViewChannel.postMessage(msg);
+    ReactNativeWebView.postMessage(msg);
 }
 
-window.fromFlutterWebViewChannel = function(data) {
-    console.log('fromFlutterWebViewChannel', JSON.stringify(data));
+function flutterIframeChannel(msg) {
+    window.parent.postMessage(msg, '*');
 }
